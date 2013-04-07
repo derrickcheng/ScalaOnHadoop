@@ -24,4 +24,4 @@ export HADOOP_CLASSPATH="${ALL_LIBS}"
 
 echo $HADOOP_CLASSPATH
 
-hadoop jar RunJar.jar "WordCount" input output
+hadoop jar runJar.jar "WordCount" input output

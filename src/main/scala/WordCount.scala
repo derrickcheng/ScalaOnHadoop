@@ -9,9 +9,7 @@ import org.apache.hadoop.util._;
 
 import scala.reflect.Manifest;
 
-class WordCount {
-
-  class Map extends MapReduceBase with Mapper[LongWritable, Text, Text, IntWritable] {
+class Map extends MapReduceBase with Mapper[LongWritable, Text, Text, IntWritable] {
     var one: IntWritable = new IntWritable(1);
     var word: Text = new Text();
 
@@ -34,13 +32,14 @@ class WordCount {
       output.collect(key, new IntWritable(sum));
     }
   }
-  
-  def main(args: Array[String]): Unit =
+
+object WordCount extends App{
+
+  override def main(args: Array[String]): Unit =
   {
 	      var conf : JobConf = new JobConf();
-  	      conf setJarByClass classOf[WordCount]
+//  	      conf setJarByClass classOf[WordCount]
 	      conf setJobName "wordcount" 
-	
 	      conf setOutputKeyClass classOf[Text]
 	      conf setOutputValueClass classOf[IntWritable]
 
@@ -48,8 +47,8 @@ class WordCount {
 	      conf setCombinerClass classOf[Reduce]
 	      conf setReducerClass classOf[Reduce]
   	      
-  	      FileInputFormat.addInputPath(conf, new Path(args(0)))
-  	      FileOutputFormat.setOutputPath(conf, new Path(args(1)))
+  	      FileInputFormat.addInputPath(conf, new Path(args(1)))
+  	      FileOutputFormat.setOutputPath(conf, new Path(args(2)))
 	      JobClient.runJob(conf);
    }
 
