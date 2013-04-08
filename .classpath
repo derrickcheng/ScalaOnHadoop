@@ -39,5 +39,6 @@
 	<classpathentry kind="lib" path="/Users/dcheng090/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.0.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/dcheng090/Desktop/Spring2013/Research/ScalaOnHadoop/lib/BIDMat.jar"/>
+	<classpathentry kind="lib" path="/Users/dcheng090/Desktop/Spring2013/Research/ScalaOnHadoop/lib/BIDMatWithHDFS.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
