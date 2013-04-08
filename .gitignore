@@ -8,6 +8,8 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+input/
+output/
 
 # Scala-IDE specific
 .scala_dependencies

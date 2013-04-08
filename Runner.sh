@@ -19,9 +19,9 @@ export ALL_LIBS="${SCALA_LIBS}:${MATIO_LIBS}:${HADOOP_LIBS}:${BIDMAT_LIBS}:${JCU
 
 #export LD_LIBRARY_PATH="${BIDMAT_ROOT}/lib/linux64:${BIDMAT_ROOT}/lib/linux64/JCUDA4.2:/usr/local/cuda-4.2/lib64:${LD_LIBRARY_PATH}" 
 
-export HADOOP_USER_CLASSPATH_FIRST="true"
-export HADOOP_CLASSPATH="${ALL_LIBS}"
-
+#export HADOOP_USER_CLASSPATH_FIRST="true"
+#export HADOOP_CLASSPATH="${ALL_LIBS}"
+export HADOOP_CLASSPATH=${SCALA_ROOT}/scala-library.jar
 echo $HADOOP_CLASSPATH
 
-hadoop jar runJar.jar "WordCount" input output
+hadoop jar runJar.jar "WordCount" input output #-libjars ${SCALA_ROOT}/scala-library.jar
