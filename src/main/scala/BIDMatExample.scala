@@ -41,11 +41,12 @@ object BIDMatExample extends Configured with Tool {
   }
 
   class Reduce extends Reducer[LongWritable, MatIO, LongWritable, Text] {
-    def reduce(key: LongWritable, values: Iterator[MatIO], context: Reducer[LongWritable, MatIO, LongWritable, Text]#Context) {
+    override def reduce(key: LongWritable, values: java.lang.Iterable[MatIO], context: Reducer[LongWritable, MatIO, LongWritable, Text]#Context) {
       var sumFMat : FMat = 0\0\0\0
-      while (values.hasNext())
+      var valsIter = values.iterator()
+      while (valsIter.hasNext())
       {
-      var matIO = values.next();
+      var matIO = valsIter.next
       var mat = matIO.mat match
       {
         case fMat : FMat => fMat;
