@@ -64,18 +64,16 @@ object BIDMatExample extends Configured with Tool {
 //		  Configuration.dumpConfiguration(conf,new PrintWriter(System.out)) // for verfying your conf file 
 //	      println("Libjars: " + conf.get("tmpjars")); //for making sure your jars have been include
 	      var job : Job = new Job(conf,"BIDMatExample")
-		  job setJarByClass(this.getClass())
+		  job setJarByClass(this.getClass())	
 		  
-	      job setMapperClass classOf[Map]
-		  job setMapOutputKeyClass classOf[LongWritable]
-		  job setMapOutputValueClass classOf[MatIO]
+		  job setMapperClass classOf[Map]
 		  
 		  job setReducerClass classOf[Reduce]
 	      job setOutputKeyClass classOf[LongWritable]
 	      job setOutputValueClass classOf[Text]
 		  
-	      job setCombinerClass classOf[Reduce]
-	      
+		  job setMapOutputKeyClass classOf[LongWritable]
+		  job setMapOutputValueClass classOf[MatIO]      
   	      
   	      FileInputFormat.addInputPath(job, new Path(args(1)))
   	      FileOutputFormat.setOutputPath(job, new Path(args(2)))
