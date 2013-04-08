@@ -55,7 +55,7 @@ object BIDMatExample extends Configured with Tool {
     }
     var sBuilder = (new StringBuilder /: sumFMat.data) ((soFar, newFloat) => soFar.append(newFloat + "\t"))
     var toWrite = new Text(sBuilder.toString())
-    context write (key, toWrite)
+    context write (null, toWrite)
     }
   }
   
