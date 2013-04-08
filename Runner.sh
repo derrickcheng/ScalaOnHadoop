@@ -21,7 +21,8 @@ export ALL_LIBS="${SCALA_LIBS}:${MATIO_LIBS}:${HADOOP_LIBS}:${BIDMAT_LIBS}:${JCU
 
 #export HADOOP_USER_CLASSPATH_FIRST="true"
 #export HADOOP_CLASSPATH="${ALL_LIBS}"
-export HADOOP_CLASSPATH=${SCALA_ROOT}/scala-library.jar
-echo $HADOOP_CLASSPATH
+#export HADOOP_CLASSPATH=${SCALA_ROOT}/scala-library.jar
+export HADOOP_CLASSPATH=lib/BIDMat.jar:lib/jline-2.9.2.jar
+export LIB_JARS=`echo ${HADOOP_CLASSPATH} | sed s/:/,/g`
 
-hadoop jar runJar.jar "WordCount" input output #-libjars ${SCALA_ROOT}/scala-library.jar
+hadoop jar runJar.jar -libjars ${LIB_JARS}  "WordCount" input output

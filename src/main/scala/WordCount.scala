@@ -1,23 +1,28 @@
-import java.io.IOException;
-import java.util._;
+import java.io.IOException
+import java.util._
+import org.apache.hadoop.fs.Path
+import org.apache.hadoop.conf._
+import org.apache.hadoop.io._
+import org.apache.hadoop.mapreduce._
+import org.apache.hadoop.util._
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
+import BIDMat.MatFunctions._
+import BIDMat.IMat
+import scala.reflect.Manifest
+import java.io.PrintWriter
+import org.apache.commons.cli.Options
 
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.conf._;
-import org.apache.hadoop.io._;
-import org.apache.hadoop.mapreduce._;
-import org.apache.hadoop.util._;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import scala.reflect.Manifest;
 
-object WordCount extends Configured with Tool { //extends Configured with Tool {
+object WordCount extends Configured with Tool {
 
   class Map extends Mapper[LongWritable, Text, Text, IntWritable] {
     var one: IntWritable = new IntWritable(1);
     var word: Text = new Text();
-
+  	
     override def map(key: LongWritable, value: Text, context: Mapper[LongWritable, Text, Text, IntWritable]#Context) {
+      var a : IMat = 1\2\3
       var line: String = value.toString();
       var tokenizer: StringTokenizer = new StringTokenizer(line);
       while (tokenizer.hasMoreTokens()) {
@@ -34,21 +39,16 @@ object WordCount extends Configured with Tool { //extends Configured with Tool {
         sum += values.next().get();
       }
       context.write(key,new IntWritable(sum))
-//      context.collect(key, new IntWritable(sum));
     }
   }
   
-  def run(args: Array[String]): Int =
+  def run(args: Array[String]) =
   {
-		  //var conf = getConf
-//		  val conf = getConf()
-//		  val otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs
-	
-	      //val otherArgs = new GenericOptionsParser(super.getConf(), args).getRemainingArgs
-	      var job : Job = new Job(super.getConf(),"Word Count")
-//	      ToolRunner.printGenericCommandUsage(System.out);
-	      //var conf : JobConf = new JobConf(this.getClass());
-//	      conf setJobName "wordcount" 
+		  var conf = super.getConf()
+//		  Configuration.dumpConfiguration(conf,new PrintWriter(System.out)) // for verfying your conf file 
+//	      println("Libjars: " + conf.get("tmpjars")); //for making sure your jars have been include
+	      var job : Job = new Job(conf,"WordCount")
+	      job
 		  job setJarByClass(this.getClass())
 	      job setOutputKeyClass classOf[Text]
 	      job setOutputValueClass classOf[IntWritable]
@@ -63,23 +63,12 @@ object WordCount extends Configured with Tool { //extends Configured with Tool {
 		    case true => 0
 		    case false => 1
 		  }
-//	      JobClient.runJob(conf);
-//  	      conf waitForCompletion  match {
-//			  case true => 0
-//			  case false => 1
-//	      }
    }
+  
   def main(args: Array[String]) {
-    var res : Int = ToolRunner.run(new Configuration(), this, args)
+    var  c : Configuration = new Configuration()
+    var res : Int = ToolRunner.run(c,this, args)
     System.exit(res);
   }
   
 }
-
-//object WordCount
-//{  
-//  def main(args: Array[String]) {
-//    var res : Int = ToolRunner.run(new Configuration(), new WordCount(), args)
-//    System.exit(res);
-//  }
-//}
