@@ -12,9 +12,10 @@ In order to serialize FMat's and other Mats, it takes advantage of the MatIO.sca
 
 to verify that `./RunBIDMat.sh` on your `input` run:
 `hadoop fs -cat output/part-r-00000`
-The output should look like
+The output should look like:
 `5.0	7.0	9.0	11.0	`
+since it just added `hadoop fs -cat input/mat1.txt` and `hadoop fs -cat input/mat2.txt`
 
 
 If you want to write your own MapReduce job that runs BIDMat and Scala, make another file and format it like BIDMatExample.scala then:
-`sbt package` #the jar then the jar will be located in the target directory somewhere. so find it and then use that jar in `RunBIDMat.sh` instead of runJar.jar which holds the sbt packaged version of BIDMatExample.scala code.  
+`sbt package` <--the jar then will be located in the target directory somewhere. so find it and then use that jar in `RunBIDMat.sh` instead of runJar.jar, which currently holds the sbt packaged version of BIDMatExample.scala code.  
