@@ -13,6 +13,7 @@ import scala.reflect.Manifest
 import java.io.PrintWriter
 import org.apache.commons.cli.Options
 import BIDMatWithHDFS._;
+import BIDMat.SciFunctions._;
 
 
 
@@ -36,6 +37,7 @@ object BIDMatExample extends Configured with Tool {
 		var matIO : MatIO = new MatIO()
 		//matI0
 		matIO.mat = fMat
+		exp(fMat)
 		context.write(new LongWritable(0), matIO)
     }
   }
