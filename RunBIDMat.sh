@@ -29,7 +29,7 @@ if [ `uname` = "Darwin" ]; then
         export FILES="osx64/HDF5_Copyright.html,osx64/JCUDA5.0,osx64/JCUDA_Copyright.txt,osx64/libbidmatmkl.jnilib,osx64/libhdf4.settings,osx64/libhdf5.settings,osx64/libiomp5.dylib,osx64/libjhdf.jnilib,osx64/libjhdf5.jnilib"
 else
         hadoop fs -put ${BIDMAT_ROOT}/lib/linux64 linux64
-        export FILES="linux64/libhdf4.settings,linux64/libhdf5.settings,linux64/libiomp5.so,linux64/libjhdf.so,linux64/libjhdf5.so"
+        export FILES="linux64/HDF5_Copyright.html,linux64/JCUDA4.2,linux64/JCUDA5.0,linux64/JCUDA_Copyright.txt,linux64/libbidmatmkl.so,linux64/libhdf4.settings,linux64/libhdf5.settings,linux64/libiomp5.so,linux64/libjhdf5.so,linux64/libjhdf.so"
 fi
 
 hadoop jar runJar.jar -libjars ${LIB_JARS} -files ${FILES} "BIDMatExample" input output
