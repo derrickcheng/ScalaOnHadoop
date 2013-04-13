@@ -26,9 +26,16 @@ export HADOOP_CLASSPATH="${ALL_LIBS}"
 #export HADOOP_CLASSPATH=lib/scala-library.jar:lib/BIDMat.jar:lib/jline-2.9.2.jar
 export LIB_JARS=`echo ${HADOOP_CLASSPATH} | sed s/:/,/g`
 
-hadoop fs -put ${BIDMAT_ROOT}/lib/osx64/ osx64
-#export FILES=`ls -dm osx64/* | tr -d " "`
-export FILES="osx64/HDF5_Copyright.html,osx64/JCUDA5.0,osx64/JCUDA_Copyright.txt,osx64/libbidmatmkl.jnilib,osx64/libhdf4.settings,osx64/libhdf5.settings,osx64/libiomp5.dylib,osx64/libjhdf.jnilib,osx64/libjhdf5.jnilib"
-echo $FILES
+if [ `uname` = "Darwin" ]; then
+	hadoop fs -put ${BIDMAT_ROOT}/lib/osx64/ osx64
+	export FILES="osx64/HDF5_Copyright.html,osx64/JCUDA5.0,osx64/JCUDA_Copyright.txt,osx64/libbidmatmkl.jnilib,osx64/libhdf4.settings,osx64/libhdf5.settings,osx64/libiomp5.dylib,osx64/libjhdf.jnilib,osx64/libjhdf5.jnilib"
+else
+	hadoop fs -put ${BIDMAT_ROOT}/lib/linux64 linux64
+	export FILES="linux64/libhdf4.settings,linux64/libhdf5.settings,linux64/libiomp5.so,linux64/libjhdf.so,linux64/libjhdf5.so"
+fi
+
+export HI=`ls -dm osx64/* | tr -d " "`
+echo ${HI}
+#echo $FILES
 
 hadoop jar runJar.jar -libjars ${LIB_JARS} -files ${FILES} "BIDMatExample" input output

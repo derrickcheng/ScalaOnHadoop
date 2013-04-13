@@ -37,7 +37,7 @@ object BIDMatExample extends Configured with Tool {
 		var matIO : MatIO = new MatIO()
 		//matI0
 		matIO.mat = fMat
-		exp(fMat)
+		var test = exp(fMat)
 		context.write(new LongWritable(0), matIO)
     }
   }
@@ -57,7 +57,10 @@ object BIDMatExample extends Configured with Tool {
     }
     var sBuilder = (new StringBuilder /: sumFMat.data) ((soFar, newFloat) => soFar.append(newFloat + "\t"))
     var toWrite = new Text(sBuilder.toString())
-    context write (null, toWrite)
+   
+    var test : FMat = exp(sumFMat)
+    var test2 : FMat = test * test.t
+    context write (new LongWritable(test2(0).toLong), toWrite)
     }
   }
   
