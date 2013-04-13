@@ -37,7 +37,7 @@ object BIDMatExample extends Configured with Tool {
 		var matIO : MatIO = new MatIO()
 		//matI0
 		matIO.mat = fMat
-		//exp(fMat)
+		exp(fMat)
 		context.write(new LongWritable(0), matIO)
     }
   }
@@ -64,7 +64,7 @@ object BIDMatExample extends Configured with Tool {
   def run(args: Array[String]) =
   {
 		  var conf = super.getConf()
-//		  Configuration.dumpConfiguration(conf,new PrintWriter(System.out)) // for verfying your conf file 
+		  //Configuration.dumpConfiguration(conf,new PrintWriter(System.out)) // for verfying your conf file 
 //	      println("Libjars: " + conf.get("tmpjars")); //for making sure your jars have been include
 	      var job : Job = new Job(conf,"BIDMatExample")
 		  job setJarByClass(this.getClass())	
@@ -78,6 +78,9 @@ object BIDMatExample extends Configured with Tool {
 		  job setMapOutputKeyClass classOf[LongWritable]
 		  job setMapOutputValueClass classOf[MatIO]      
   	      
+		  println("============")
+		  for (arg <- args)
+			  println(arg)
   	      FileInputFormat.addInputPath(job, new Path(args(1)))
   	      FileOutputFormat.setOutputPath(job, new Path(args(2)))
   	      job waitForCompletion(true) match {
